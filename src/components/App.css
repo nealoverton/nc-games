@@ -1,0 +1,130 @@
+.App {
+  --primary-color: rgb(133, 168, 170);
+  --secondary-color: rgb(53, 47, 49);
+  --tertiary--color: rgb(40, 37, 48);
+  --highlight-color: rgb(183, 137, 186);
+  --secondary-gradient: linear-gradient(
+    0deg,
+    rgba(53, 47, 49, 1) 25%,
+    rgba(143, 133, 170, 1) 94%,
+    rgba(183, 137, 186, 1) 100%
+  );
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 0px;
+  padding: 0px;
+  background-color: var(--secondary-color);
+}
+
+p {
+  line-height: 1.2em;
+  margin: 0px;
+}
+
+div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gradient {
+  background: rgb(53, 47, 49);
+  background: linear-gradient(
+    173deg,
+    rgba(53, 47, 49, 1) 53%,
+    rgba(143, 133, 170, 1) 100%
+  );
+}
+
+.review-list {
+  list-style-type: none;
+  padding: 20px;
+  margin: 0px;
+  background-color: var(--secondary-color);
+}
+
+.review-list__li {
+  color: var(--highlight-color);
+  background-color: var(--tertiary--color);
+  margin-bottom: 20px;
+}
+
+.review-list__img {
+  width: 60px;
+}
+
+.Review__img {
+  width: 200px;
+}
+
+.Review__user-details {
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.Review__user-details__img {
+  width: 30px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.Review__body--collapsed {
+  overflow: hidden;
+  max-height: 12em;
+  margin: 5px;
+}
+
+.Review__body--expanded {
+  margin: 5px;
+}
+
+.Review__read-more {
+  align-self: flex-end;
+  font-size: 0.8em;
+  margin-right: 10px;
+  margin-top: 0px;
+  color: var(--primary-color);
+}
+
+.Review__voting {
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-around;
+  max-width: 300px;
+  margin: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  color: var(--tertiary--color);
+  background: var(--primary-color);
+}
+
+.nav__home-link {
+  display: flex;
+  align-items: center;
+  width: 50vw;
+  height: 50px;
+  text-decoration: none;
+  font-size: 10px;
+}
+
+.nav__logo {
+  width: 40px;
+  height: 40px;
+  margin: 10px;
+}
