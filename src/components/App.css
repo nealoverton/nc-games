@@ -1,22 +1,26 @@
 .App {
-  --primary-color: rgb(133, 168, 170);
-  --secondary-color: rgb(53, 47, 49);
-  --tertiary--color: rgb(40, 37, 48);
-  --highlight-color: rgb(183, 137, 186);
+  --primary-color: rgb(37, 51, 66);
+  --secondary-color: rgb(98, 128, 161);
+  --tertiary-color: rgb(25, 37, 49);
+  --background-color: rgb(24, 27, 37);
+  --highlight-color: rgb(159, 209, 233);
+  --text-color-light: rgb(207, 205, 205);
   --secondary-gradient: linear-gradient(
     0deg,
     rgba(53, 47, 49, 1) 25%,
     rgba(143, 133, 170, 1) 94%,
     rgba(183, 137, 186, 1) 100%
   );
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   margin: 0px;
   padding: 0px;
-  background-color: var(--secondary-color);
+  background-color: var(--background-color);
+  color: var(--text-color-light);
+  border: 1px solid red;
 }
 
 p {
@@ -39,25 +43,50 @@ div {
   );
 }
 
-.review-list {
+.ReviewList {
   list-style-type: none;
   padding: 20px;
   margin: 0px;
-  background-color: var(--secondary-color);
+  height: 100%;
 }
 
-.review-list__li {
-  color: var(--highlight-color);
-  background-color: var(--tertiary--color);
+.ReviewList__li {
+  background-color: var(--primary-color);
   margin-bottom: 20px;
 }
 
-.review-list__img {
+.ReviewList__img {
   width: 60px;
+}
+
+.ReviewList__page-selection {
+  flex-direction: row;
+  max-width: 80vw;
+  margin-bottom: 20px;
+}
+
+.ReviewList__page-button {
+  background-color: var(--primary-color);
+  color: var(--text-color-light);
+  font-weight: bold;
+  margin: 3px;
+}
+
+.ReviewList__page-button--selected {
+  background-color: var(--highlight-color);
+  color: var(--tertiary-color);
+  font-weight: bold;
+  margin: 3px;
 }
 
 .Review__img {
   width: 200px;
+  max-height: 150px;
+  object-fit: cover;
+}
+
+.Review__title {
+  color: var(--highlight-color);
 }
 
 .Review__user-details {
@@ -66,6 +95,7 @@ div {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  color: var(--highlight-color);
 }
 
 .Review__user-details__img {
@@ -75,9 +105,13 @@ div {
   border-radius: 15px;
 }
 
+.Review__date {
+  color: var(--secondary-color);
+}
+
 .Review__body--collapsed {
   overflow: hidden;
-  max-height: 12em;
+  max-height: 6em;
   margin: 5px;
 }
 
@@ -90,15 +124,34 @@ div {
   font-size: 0.8em;
   margin-right: 10px;
   margin-top: 0px;
-  color: var(--primary-color);
+  color: var(--highlight-color);
 }
 
-.Review__voting {
+.Review__footer {
   width: 100%;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   max-width: 300px;
   margin: 10px;
+  color: var(--highlight-color);
+}
+
+.Review__voting__buttons {
+  flex-direction: row;
+}
+
+.Review__voting__button {
+  background-color: var(--tertiary-color);
+}
+
+.Review__voting__button__img--up {
+  width: 30px;
+  align-self: flex-end;
+}
+
+.Review__voting__button__img--down {
+  width: 30px;
+  align-self: flex-end;
 }
 
 .hidden {
@@ -110,7 +163,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   width: 100vw;
-  color: var(--tertiary--color);
+  color: var(--text-color-light);
   background: var(--primary-color);
 }
 
@@ -121,10 +174,37 @@ nav {
   height: 50px;
   text-decoration: none;
   font-size: 10px;
+  color: var(--text-color-light);
 }
 
 .nav__logo {
   width: 40px;
   height: 40px;
   margin: 10px;
+}
+
+.NotFound {
+  height: 100vh;
+  width: 90vw;
+  background-color: var(--background--color);
+}
+.NotFound__img {
+  width: 70vw;
+  max-width: 300px;
+}
+
+.UserSnippet {
+  flex-direction: row;
+  justify-content: space-between;
+  width: 120px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.UserSnippet p {
+  width: 120px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

@@ -6,6 +6,7 @@ import {
   fetchReviewsByOwner,
   fetchUserByUsername,
 } from "../utils/game-reviews-api";
+import { UserSnippet } from "./UserSnippet";
 
 export const Review = ({ review_id }) => {
   const [review, setReview] = useState({});
@@ -17,15 +18,15 @@ export const Review = ({ review_id }) => {
 
   useEffect(() => {
     fetchReviewByID(review_id).then((res) => {
-      setReview(res);
-      setDate(formatDate(res.created_at));
+      setReview(res.review);
+      setDate(formatDate(res.review.created_at));
       setIsLoading(false);
 
-      fetchUserByUsername(res.owner).then((res) => {
-        setUser(res);
+      fetchUserByUsername(res.review.owner).then((res) => {
+        setUser(res.user);
       });
 
-      fetchReviewsByOwner(res.owner).then((res) => {
+      fetchReviewsByOwner(res.review.owner).then((res) => {
         setUserReviews(res.total_count);
       });
     });
@@ -44,21 +45,16 @@ export const Review = ({ review_id }) => {
         className="Review__img"
         alt="A review image chosen by the author"
       />
-      <h2>{review.title}</h2>
+      <h2 className="Review__title">{review.title}</h2>
       <p>{gaugeReaction(review.votes)}</p>
 
       <div className="Review__user-details">
-        <img
-          src={user.avatar_url}
-          className="Review__user-details__img"
-          alt="The review author's profile picture"
-        />
-        <p className="Review__user-details__name">{user.username}</p>
+        <UserSnippet user={user} />
         <p>|</p>
         <p>{userReviews} reviews</p>
       </div>
 
-      <p>posted {date}</p>
+      <p className="Review__date">posted {date}</p>
       <div
         className={
           isExpanded ? "Review__body--expanded" : "Review__body--collapsed"
@@ -73,13 +69,26 @@ export const Review = ({ review_id }) => {
       >
         read more
       </p>
-      <div className="Review__voting">
-        <button>&#128077;</button>
-        <p>Do you agree?</p>
-        <button>&#128078;</button>
+      <div className="Review__footer">
+        <div className="Review__footer__voting">
+          <p>Do you agree?</p>
+          <div className="Review__voting__buttons">
+            <button className="Review__voting__button">
+              <img
+                src={require("../thumbs-up.png")}
+                className="Review__voting__button__img--up"
+              />
+            </button>
+            <button className="Review__voting__button">
+              <img
+                src={require("../thumbs-down.png")}
+                className="Review__voting__button__img--down"
+              />
+            </button>
+          </div>
+        </div>
+        <p>{review.comment_count} comments</p>
       </div>
-
-      <p>{review.comment_count} comments</p>
     </div>
   );
 };
