@@ -1,46 +1,31 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import Select from "react-select";
 import { fetchCategories, fetchReviews } from "../utils/game-reviews-api";
 import Review from "./Review";
 
 export const ReviewList = () => {
+  const [isloading, setIsLoading] = useState(true);
   const [reviews, setReviews] = useState([]);
   const [page, setPage] = useState(1);
   const [pageRange, setPageRange] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState();
-  const sortByOptions = [
-    {
-      value: "created_at",
-      label: "newest",
-    },
-    {
-      value: "comment_count",
-      label: "most commented",
-    },
-    {
-      value: "votes",
-      label: "popularity",
-    },
-  ];
+  const sortByOptions = ["created_at", "comment_count", "votes"];
   const [selectedSortBy, setSelectedSortBy] = useState();
 
   useEffect(() => {
     fetchCategories().then((res) => {
-      const all = [{ value: null, label: "all" }];
-      const categoryOptions = res.categories.map((category) => {
-        return {
-          value: category.slug,
-          label: category.slug,
-        };
-      });
-      setCategories(all.concat(categoryOptions));
+      setCategories(res.categories);
+      setIsLoading(false);
     });
   }, []);
 
   useEffect(() => {
-    fetchReviews(selectedCategory, null, page).then((res) => {
+    fetchReviews({
+      category: selectedCategory,
+      p: page,
+      sort_by: selectedSortBy,
+    }).then((res) => {
       setReviews(res.reviews);
       const pageTotal = Math.ceil(res.total_count / 10);
       const arraySpread = [...Array(pageTotal).keys()];
@@ -48,27 +33,48 @@ export const ReviewList = () => {
       setPageRange(pageSpread);
       window.scrollTo(0, 0);
     });
-  }, [selectedCategory, page]);
+  }, [selectedCategory, selectedSortBy, page]);
 
-  const handleCategoryChange = (selectedOption) => {
-    setSelectedCategory(selectedOption.value);
+  const handleCategoryChange = (event) => {
+    if (event.target.value === "all") {
+      setSelectedCategory();
+    } else {
+      setSelectedCategory(event.target.value);
+    }
   };
 
-  const handleSortByChange = (selectedOption) => {
-    setSelectedSortBy(selectedOption.value);
+  const handleSortByChange = (event) => {
+    setSelectedSortBy(event.target.value);
   };
 
-  return (
+  return isloading ? (
+    <p>Loading...</p>
+  ) : (
     <div>
-      <label>
-        Category:
-        <Select options={categories} onChange={handleCategoryChange} />
-      </label>
+      <div className="ReviewList__selectors">
+        <label>
+          Category:
+          <select onChange={handleCategoryChange} className="select">
+            <option value={"all"}>all</option>
+            {categories.map((category) => {
+              return (
+                <option value={category.slug} key={category.slug}>
+                  {category.slug}
+                </option>
+              );
+            })}
+          </select>
+        </label>
 
-      <label>
-        Sort by:
-        <Select options={sortByOptions} onChange={handleSortByChange} />
-      </label>
+        <label>
+          Sort by:
+          <select onChange={handleSortByChange} className="select">
+            <option value="created_at">newest</option>
+            <option value="comment_count">most comments</option>
+            <option value="votes">most popular</option>
+          </select>
+        </label>
+      </div>
 
       <ul className="ReviewList">
         {reviews.map((review) => {

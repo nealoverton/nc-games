@@ -31,7 +31,7 @@ export const Nav = () => {
   }
 
   return (
-    <nav>
+    <nav className="sticky gradient">
       <Link to="/" className="Nav__home-link">
         <img
           src={require("../logo.png")}

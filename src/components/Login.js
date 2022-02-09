@@ -12,15 +12,18 @@ export const Login = () => {
 
   const attemptLogin = (event) => {
     event.preventDefault();
-    fetchUserByUsername(username)
-      .then((res) => {
-        setProfile(res.user);
-        setError(false);
-        navigate("/");
-      })
-      .catch((err) => {
-        setError(true);
-      });
+
+    if (username !== "") {
+      fetchUserByUsername(username)
+        .then((res) => {
+          setProfile(res.user);
+          setError(false);
+          navigate("/");
+        })
+        .catch((err) => {
+          setError(true);
+        });
+    }
   };
 
   const handleChange = (event) => {
@@ -33,7 +36,7 @@ export const Login = () => {
         Username:
         <input type="text" name="username" onChange={handleChange}></input>
       </label>
-      {error ? <p className="login__error">Invalid Username</p> : <p />}
+      {error ? <p className="login__error">Invalid Username</p> : <></>}
       <button>Login</button>
     </form>
   );

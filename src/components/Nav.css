@@ -2,7 +2,9 @@ Nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin: 0;
   width: 100vw;
+  height: 70px;
   color: var(--text-color-light);
   background: var(--primary-color);
 }
@@ -28,4 +30,16 @@ Nav {
   height: 50px;
   border-radius: 25px;
   object-fit: cover;
+}
+
+.Nav__login {
+  color: var(--text-color-light);
+  text-decoration: none;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
 }

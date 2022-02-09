@@ -20,7 +20,7 @@ export const Comment = ({ comment }) => {
   return isloading ? (
     <p>Loading...</p>
   ) : (
-    <div>
+    <div className="Comment">
       <UserSnippet user={user} />
       <p className="Review__date">posted {date}</p>
       <p>{comment.body}</p>

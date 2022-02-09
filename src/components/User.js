@@ -20,7 +20,7 @@ export const User = () => {
       setIsLoading(false);
     });
 
-    fetchReviews(null, username).then((res) => {
+    fetchReviews({ owner: username }).then((res) => {
       setUserReviews(res.total_count);
     });
   }, []);
@@ -35,9 +35,7 @@ export const User = () => {
       <h1>{user.username}</h1>
       <h3>{user.name}</h3>
       {userReviews ? (
-        <Link to={`/reviews?owner=${username}`} className="User__link">
-          {userReviews} reviews
-        </Link>
+        <p className="User__link">{userReviews} reviews</p>
       ) : (
         <p></p>
       )}

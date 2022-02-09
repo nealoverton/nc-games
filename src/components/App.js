@@ -19,9 +19,8 @@ function App() {
         <div className="App">
           <Nav />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<ReviewList />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/reviews" element={<ReviewList />} />
             <Route path="/reviews/:review_id" element={<FullReview />} />
             <Route path="/users/:username" element={<User />} />
             <Route path="*" element={<NotFound />} />
