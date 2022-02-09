@@ -3,18 +3,21 @@ import DetectableOverflow from "react-detectable-overflow";
 import { gaugeReaction, formatDate } from "../utils/formatting";
 import {
   fetchReviewByID,
-  fetchReviewsByOwner,
+  fetchReviews,
   fetchUserByUsername,
 } from "../utils/game-reviews-api";
 import { UserSnippet } from "./UserSnippet";
+import { useNavigate } from "react-router-dom";
 
-export const Review = ({ review_id }) => {
+export const Review = ({ review_id, isFullReview = false }) => {
   const [review, setReview] = useState({});
   const [user, setUser] = useState({});
   const [userReviews, setUserReviews] = useState();
   const [isloading, setIsLoading] = useState(true);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(isFullReview);
   const [date, setDate] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchReviewByID(review_id).then((res) => {
@@ -26,7 +29,7 @@ export const Review = ({ review_id }) => {
         setUser(res.user);
       });
 
-      fetchReviewsByOwner(res.review.owner).then((res) => {
+      fetchReviews(null, res.review.owner).then((res) => {
         setUserReviews(res.total_count);
       });
     });
@@ -46,12 +49,11 @@ export const Review = ({ review_id }) => {
         alt="A review image chosen by the author"
       />
       <h2 className="Review__title">{review.title}</h2>
+      <h3 className="Review__category">{review.category}</h3>
       <p>{gaugeReaction(review.votes)}</p>
 
       <div className="Review__user-details">
         <UserSnippet user={user} />
-        <p>|</p>
-        <p>{userReviews} reviews</p>
       </div>
 
       <p className="Review__date">posted {date}</p>
@@ -87,7 +89,13 @@ export const Review = ({ review_id }) => {
             </button>
           </div>
         </div>
-        <p>{review.comment_count} comments</p>
+        {isFullReview ? (
+          <></>
+        ) : (
+          <p onClick={() => navigate(`/reviews/${review.review_id}`)}>
+            {review.comment_count} comments
+          </p>
+        )}
       </div>
     </div>
   );

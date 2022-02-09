@@ -11,7 +11,7 @@
     rgba(143, 133, 170, 1) 94%,
     rgba(183, 137, 186, 1) 100%
   );
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,7 +20,14 @@
   padding: 0px;
   background-color: var(--background-color);
   color: var(--text-color-light);
-  border: 1px solid red;
+}
+
+.fill-window {
+  height: 100%;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
 }
 
 p {
@@ -45,14 +52,24 @@ div {
 
 .ReviewList {
   list-style-type: none;
-  padding: 20px;
+  background-color: var(--background-color);
+  padding: 0px;
   margin: 0px;
   height: 100%;
 }
 
-.ReviewList__li {
+.Review {
   background-color: var(--primary-color);
-  margin-bottom: 20px;
+  margin: 20px;
+}
+
+.Review__category {
+  color: var(--secondary-color);
+  margin: 5px;
+}
+
+.Review__title {
+  margin-bottom: 5px;
 }
 
 .ReviewList__img {
@@ -63,6 +80,7 @@ div {
   flex-direction: row;
   max-width: 80vw;
   margin-bottom: 20px;
+  background-color: var(--background-color);
 }
 
 .ReviewList__page-button {
@@ -158,31 +176,6 @@ div {
   display: none;
 }
 
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100vw;
-  color: var(--text-color-light);
-  background: var(--primary-color);
-}
-
-.nav__home-link {
-  display: flex;
-  align-items: center;
-  width: 50vw;
-  height: 50px;
-  text-decoration: none;
-  font-size: 10px;
-  color: var(--text-color-light);
-}
-
-.nav__logo {
-  width: 40px;
-  height: 40px;
-  margin: 10px;
-}
-
 .NotFound {
   height: 100vh;
   width: 90vw;
@@ -196,15 +189,35 @@ nav {
 .UserSnippet {
   flex-direction: row;
   justify-content: space-between;
-  width: 120px;
+
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
 .UserSnippet p {
-  width: 120px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  margin-left: 10px;
+}
+
+.User {
+  background-color: var(--primary-color);
+  height: 100%;
+}
+
+.User__img {
+  width: 200px;
+}
+
+.User__link {
+  text-decoration: none;
+  color: var(--text-color-light);
+}
+
+.Home {
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--background-color);
 }
