@@ -1,0 +1,16 @@
+.Comment {
+  background-color: var(--primary-color);
+  margin: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  max-width: 500px;
+}
+
+.Comment > * {
+  text-overflow: wrap;
+}
+
+.Comment__body {
+  overflow-wrap: break-word;
+  max-width: 100%;
+}

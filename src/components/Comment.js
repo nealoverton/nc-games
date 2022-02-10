@@ -3,6 +3,7 @@ import { deleteComment, fetchUserByUsername } from "../utils/game-reviews-api";
 import { UserSnippet } from "./UserSnippet";
 import { formatDate } from "../utils/formatting";
 import { profileContext } from "./Context";
+import "./Comment.css";
 
 export const Comment = ({ comment, setComments }) => {
   const [user, setUser] = useState({});
@@ -40,7 +41,7 @@ export const Comment = ({ comment, setComments }) => {
     <div className="Comment">
       <UserSnippet user={user} />
       <p className="Review__date">posted {date}</p>
-      <p>{comment.body}</p>
+      <p className="Comment__body">{comment.body}</p>
       {profile && profile.username === comment.author ? (
         <button onClick={handleDelete}>delete</button>
       ) : (

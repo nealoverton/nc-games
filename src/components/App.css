@@ -47,6 +47,7 @@ ul {
 p {
   line-height: 1.2em;
   margin: 0px;
+  overflow-wrap: break-word;
 }
 
 div {
