@@ -9,7 +9,7 @@ import {
 import { UserSnippet } from "./UserSnippet";
 import { useNavigate } from "react-router-dom";
 
-export const Review = ({ review_id, isFullReview = false }) => {
+export const Review = ({ review_id, isFullReview = false, votes }) => {
   const [review, setReview] = useState({});
   const [user, setUser] = useState({});
   const [userReviews, setUserReviews] = useState();
@@ -33,7 +33,7 @@ export const Review = ({ review_id, isFullReview = false }) => {
         setUserReviews(res.total_count);
       });
     });
-  }, []);
+  }, [votes]);
 
   const expandReview = () => {
     setIsExpanded(true);
@@ -50,7 +50,7 @@ export const Review = ({ review_id, isFullReview = false }) => {
       />
       <h2 className="Review__title">{review.title}</h2>
       <h3 className="Review__category">{review.category}</h3>
-      <p>{gaugeReaction(review.votes)}</p>
+      <p>{votes} votes</p>
 
       <div className="Review__user-details">
         <UserSnippet user={user} />
@@ -65,38 +65,22 @@ export const Review = ({ review_id, isFullReview = false }) => {
         <p>{review.review_body}</p>
       </div>
 
-      <p
-        className={isExpanded ? "hidden" : "Review__read-more"}
-        onClick={expandReview}
-      >
-        read more
-      </p>
-      <div className="Review__footer">
-        <div className="Review__footer__voting">
-          <p>Do you agree?</p>
-          <div className="Review__voting__buttons">
-            <button className="Review__voting__button">
-              <img
-                src={require("../thumbs-up.png")}
-                className="Review__voting__button__img--up"
-              />
-            </button>
-            <button className="Review__voting__button">
-              <img
-                src={require("../thumbs-down.png")}
-                className="Review__voting__button__img--down"
-              />
-            </button>
-          </div>
-        </div>
-        {isFullReview ? (
-          <></>
-        ) : (
-          <p onClick={() => navigate(`/reviews/${review.review_id}`)}>
-            {review.comment_count} comments
+      {isFullReview ? (
+        <></>
+      ) : (
+        <div
+          className="Review__footer"
+          onClick={() => navigate(`/reviews/${review.review_id}`)}
+        >
+          <p
+            className={isExpanded ? "hidden" : "Review__read-more"}
+            onClick={expandReview}
+          >
+            read more
           </p>
-        )}
-      </div>
+          <p>{review.comment_count} comments</p>
+        </div>
+      )}
     </div>
   );
 };

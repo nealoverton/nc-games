@@ -2,6 +2,8 @@ import { useParams } from "react-router-dom";
 import Review from "./Review";
 import {
   fetchCommentsbyReviewID,
+  fetchReviewByID,
+  patchReview,
   postComment,
 } from "../utils/game-reviews-api";
 import { useEffect, useState, useContext } from "react";
@@ -17,15 +19,19 @@ export const FullReview = () => {
   const { profile, setProfile } = useContext(profileContext);
   const { setLastUrl } = useContext(lastUrlContext);
   const [tempSwitch, setTempSwitch] = useState(true);
+  const [votes, setVotes] = useState();
 
   useEffect(() => {
     window.scrollTo(0, 0);
     setLastUrl(window.location.pathname);
+    fetchReviewByID(review_id).then((res) => {
+      setVotes(res.review.votes);
+    });
     fetchCommentsbyReviewID(review_id).then((res) => {
       setComments(res.comments);
       setIsLoading(false);
     });
-  }, [tempSwitch]);
+  }, []);
 
   const handleChange = (event) => {
     setNewComment(event.target.value);
@@ -37,16 +43,47 @@ export const FullReview = () => {
     if (newComment !== "") {
       postComment(review_id, profile.username, newComment).then(() => {
         setNewComment("");
-        setTempSwitch(!tempSwitch);
+        fetchCommentsbyReviewID(review_id).then((res) => {
+          setComments(res.comments);
+          setIsLoading(false);
+        });
       });
     }
+  };
+
+  const handleVoting = (inc_votes) => {
+    setVotes((currentVotes) => currentVotes + inc_votes);
+    patchReview(review_id, inc_votes);
   };
 
   return isloading ? (
     <p>Loading...</p>
   ) : (
     <div className="FullReview">
-      <Review review_id={review_id} isFullReview={true} />
+      <Review review_id={review_id} isFullReview={true} votes={votes} />
+      <div className="Review__footer__voting">
+        <p>Do you agree?</p>
+        <div className="Review__voting__buttons">
+          <button
+            className="Review__voting__button"
+            onClick={() => handleVoting(1)}
+          >
+            <img
+              src={require("../thumbs-up.png")}
+              className="Review__voting__button__img--up"
+            />
+          </button>
+          <button
+            className="Review__voting__button"
+            onClick={() => handleVoting(-1)}
+          >
+            <img
+              src={require("../thumbs-down.png")}
+              className="Review__voting__button__img--down"
+            />
+          </button>
+        </div>
+      </div>
       {profile ? (
         <form onSubmit={handleSubmit}>
           <input

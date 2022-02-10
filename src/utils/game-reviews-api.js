@@ -5,18 +5,24 @@ const gamesApi = axios.create({
 });
 
 export const fetchReviews = (queries) => {
-  let url = "/reviews";
-  const queryStrings = [];
+  const url = "/reviews";
 
-  for (const query in queries) {
-    if (queries[query]) {
-      queryStrings.push(`${query}=${queries[query]}`);
-    }
-  }
+  return gamesApi.get(url, { params: queries }).then((res) => {
+    return res.data;
+  });
+};
 
-  url += "?" + queryStrings.join("&&");
-
+export const fetchReviewByID = (review_id) => {
+  const url = `/reviews/${review_id}`;
   return gamesApi.get(url).then((res) => {
+    return res.data;
+  });
+};
+
+export const patchReview = (review_id, inc_votes) => {
+  const url = `/reviews/${review_id}`;
+
+  return gamesApi.patch(url, { inc_votes }).then((res) => {
     return res.data;
   });
 };
@@ -41,13 +47,6 @@ export const deleteComment = (comment_id) => {
   const url = `/comments/${comment_id}`;
 
   return gamesApi.delete(url);
-};
-
-export const fetchReviewByID = (review_id) => {
-  let url = `/reviews/${review_id}`;
-  return gamesApi.get(url).then((res) => {
-    return res.data;
-  });
 };
 
 export const fetchUserByUsername = (username) => {
