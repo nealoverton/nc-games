@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useSearchParams } from "react-router-dom";
 import { fetchCategories, fetchReviews } from "../utils/game-reviews-api";
 import Review from "./Review";
+import { lastUrlContext } from "./Context";
 
 export const ReviewList = () => {
   const [isloading, setIsLoading] = useState(true);
@@ -12,8 +13,10 @@ export const ReviewList = () => {
   const [selectedCategory, setSelectedCategory] = useState();
   const sortByOptions = ["created_at", "comment_count", "votes"];
   const [selectedSortBy, setSelectedSortBy] = useState();
+  const { setLastUrl } = useContext(lastUrlContext);
 
   useEffect(() => {
+    setLastUrl(window.location.pathname);
     fetchCategories().then((res) => {
       setCategories(res.categories);
       setIsLoading(false);
@@ -74,6 +77,26 @@ export const ReviewList = () => {
             <option value="votes">most popular</option>
           </select>
         </label>
+      </div>
+
+      <div className="ReviewList__page-selection">
+        {pageRange.map((pageNumber) => {
+          return (
+            <button
+              key={pageNumber}
+              onClick={() => {
+                setPage(pageNumber);
+              }}
+              className={
+                pageNumber === page
+                  ? "ReviewList__page-button--selected"
+                  : "ReviewList__page-button"
+              }
+            >
+              {pageNumber}
+            </button>
+          );
+        })}
       </div>
 
       <ul className="ReviewList">

@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { fetchUserByUsername, fetchReviews } from "../utils/game-reviews-api";
 import { NotFound } from "./NotFound";
+import { lastUrlContext } from "./Context";
 
 export const User = () => {
   const { username } = useParams();
@@ -9,8 +10,11 @@ export const User = () => {
   const [userReviews, setUserReviews] = useState();
   const [isloading, setIsLoading] = useState(true);
   const [userNotFound, setUserNotFound] = useState(false);
+  const { setLastUrl } = useContext(lastUrlContext);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+    setLastUrl(window.location.pathname);
     fetchUserByUsername(username).then((res) => {
       if (!res.user) {
         setUserNotFound(true);

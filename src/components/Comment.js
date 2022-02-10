@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
-import { fetchUserByUsername } from "../utils/game-reviews-api";
+import { useEffect, useState, useContext } from "react";
+import { deleteComment, fetchUserByUsername } from "../utils/game-reviews-api";
 import { UserSnippet } from "./UserSnippet";
 import { formatDate } from "../utils/formatting";
+import { profileContext } from "./Context";
 
-export const Comment = ({ comment }) => {
+export const Comment = ({ comment, setComments }) => {
   const [user, setUser] = useState({});
   const [isloading, setIsLoading] = useState(true);
   const [date, setDate] = useState("");
+  const { profile, setProfile } = useContext(profileContext);
 
   useEffect(() => {
     setDate(formatDate(comment.created_at));
@@ -17,6 +19,21 @@ export const Comment = ({ comment }) => {
     });
   }, []);
 
+  const handleDelete = () => {
+    deleteComment(comment.comment_id);
+    setComments((currentComments) => {
+      const newComments = [];
+
+      for (const currentComment of currentComments) {
+        if (currentComment.comment_id !== comment.comment_id) {
+          newComments.push(currentComment);
+        }
+      }
+
+      setComments(newComments);
+    });
+  };
+
   return isloading ? (
     <p>Loading...</p>
   ) : (
@@ -24,6 +41,11 @@ export const Comment = ({ comment }) => {
       <UserSnippet user={user} />
       <p className="Review__date">posted {date}</p>
       <p>{comment.body}</p>
+      {profile && profile.username === comment.author ? (
+        <button onClick={handleDelete}>delete</button>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

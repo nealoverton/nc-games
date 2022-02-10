@@ -6,7 +6,8 @@ import {
 } from "../utils/game-reviews-api";
 import { useEffect, useState, useContext } from "react";
 import { Comment } from "./Comment";
-import { profileContext } from "./ProfileContext";
+import { profileContext, lastUrlContext } from "./Context";
+import { CommentList } from "./CommentList";
 
 export const FullReview = () => {
   const { review_id } = useParams();
@@ -14,9 +15,12 @@ export const FullReview = () => {
   const [isloading, setIsLoading] = useState(true);
   const [newComment, setNewComment] = useState("");
   const { profile, setProfile } = useContext(profileContext);
+  const { setLastUrl } = useContext(lastUrlContext);
   const [tempSwitch, setTempSwitch] = useState(true);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+    setLastUrl(window.location.pathname);
     fetchCommentsbyReviewID(review_id).then((res) => {
       setComments(res.comments);
       setIsLoading(false);
@@ -43,20 +47,20 @@ export const FullReview = () => {
   ) : (
     <div className="FullReview">
       <Review review_id={review_id} isFullReview={true} />
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Write a comment..."
-          value={newComment}
-          onChange={handleChange}
-        />
-        <button>post</button>
-      </form>
-      <ul>
-        {comments.map((comment) => {
-          return <Comment comment={comment} key={comment.comment_id} />;
-        })}
-      </ul>
+      {profile ? (
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Write a comment..."
+            value={newComment}
+            onChange={handleChange}
+          />
+          <button>post</button>
+        </form>
+      ) : (
+        <p>Log in to leave a comment</p>
+      )}
+      <CommentList comments={comments} setComments={setComments} />
     </div>
   );
 };

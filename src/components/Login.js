@@ -1,14 +1,19 @@
 import { fetchUserByUsername } from "../utils/game-reviews-api";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { profileContext } from "./ProfileContext";
+import { profileContext, lastUrlContext } from "./Context";
 
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [error, setError] = useState(false);
   let navigate = useNavigate();
   const { setProfile } = useContext(profileContext);
+  const { lastUrl } = useContext(lastUrlContext);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const attemptLogin = (event) => {
     event.preventDefault();
@@ -18,7 +23,7 @@ export const Login = () => {
         .then((res) => {
           setProfile(res.user);
           setError(false);
-          navigate("/");
+          navigate(lastUrl);
         })
         .catch((err) => {
           setError(true);

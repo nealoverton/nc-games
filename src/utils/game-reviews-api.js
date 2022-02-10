@@ -32,11 +32,15 @@ export const fetchCommentsbyReviewID = (review_id) => {
 export const postComment = (review_id, username, body) => {
   const url = `/reviews/${review_id}/comments`;
 
-  console.log({ username: username, body: body });
-
   return gamesApi.post(url, { username: username, body: body }).then((res) => {
     return res.data;
   });
+};
+
+export const deleteComment = (comment_id) => {
+  const url = `/comments/${comment_id}`;
+
+  return gamesApi.delete(url);
 };
 
 export const fetchReviewByID = (review_id) => {

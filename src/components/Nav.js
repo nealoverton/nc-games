@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { profileContext } from "./ProfileContext";
+import { profileContext } from "./Context";
 import { useContext } from "react";
 
 export const Nav = () => {
