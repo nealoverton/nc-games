@@ -23,6 +23,7 @@ export const Login = () => {
         .then((res) => {
           setProfile(res.user);
           setError(false);
+          localStorage.setItem("user", JSON.stringify(res.user));
           navigate(lastUrl);
         })
         .catch((err) => {

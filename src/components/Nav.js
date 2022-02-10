@@ -1,6 +1,7 @@
+import "./Nav.css";
 import { Link, useNavigate } from "react-router-dom";
 import { profileContext } from "./Context";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 export const Nav = () => {
   const { profile, setProfile } = useContext(profileContext);
@@ -14,8 +15,17 @@ export const Nav = () => {
 
   const logout = () => {
     setProfile();
+    localStorage.removeItem("user");
     navigate("/");
   };
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("user");
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      setProfile(foundUser);
+    }
+  }, []);
 
   if (profile) {
     loggedInAs = (
@@ -32,7 +42,11 @@ export const Nav = () => {
 
   return (
     <nav className="sticky gradient">
-      <Link to="/" className="Nav__home-link">
+      <Link
+        to="/"
+        className="Nav__home-link"
+        onClick={() => window.scrollTo(0, 0)}
+      >
         <img
           src={require("../logo.png")}
           className="Nav__logo"
