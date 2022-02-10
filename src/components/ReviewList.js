@@ -1,33 +1,26 @@
 import { useEffect, useState, useContext } from "react";
 import { useSearchParams } from "react-router-dom";
 import { fetchCategories, fetchReviews } from "../utils/game-reviews-api";
-import Review from "./Review";
+import Review from "./ReviewSnippet";
 import { lastUrlContext } from "./Context";
 
-export const ReviewList = () => {
+export const ReviewList = ({ category, sort_by, owner, page, setPage }) => {
   const [isloading, setIsLoading] = useState(true);
   const [reviews, setReviews] = useState([]);
-  const [page, setPage] = useState(1);
   const [pageRange, setPageRange] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState();
-  const sortByOptions = ["created_at", "comment_count", "votes"];
-  const [selectedSortBy, setSelectedSortBy] = useState();
   const { setLastUrl } = useContext(lastUrlContext);
 
   useEffect(() => {
     setLastUrl(window.location.pathname);
-    fetchCategories().then((res) => {
-      setCategories(res.categories);
-      setIsLoading(false);
-    });
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
     fetchReviews({
-      category: selectedCategory,
+      category: category,
       p: page,
-      sort_by: selectedSortBy,
+      sort_by: sort_by,
+      owner: owner,
     }).then((res) => {
       setReviews(res.reviews);
       const pageTotal = Math.ceil(res.total_count / 10);
@@ -36,49 +29,12 @@ export const ReviewList = () => {
       setPageRange(pageSpread);
       window.scrollTo(0, 0);
     });
-  }, [selectedCategory, selectedSortBy, page]);
-
-  const handleCategoryChange = (event) => {
-    if (event.target.value === "all") {
-      setSelectedCategory();
-    } else {
-      setSelectedCategory(event.target.value);
-    }
-  };
-
-  const handleSortByChange = (event) => {
-    setSelectedSortBy(event.target.value);
-  };
+  }, [category, sort_by, owner, page]);
 
   return isloading ? (
     <p>Loading...</p>
   ) : (
     <div>
-      <div className="ReviewList__selectors">
-        <label>
-          Category:
-          <select onChange={handleCategoryChange} className="select">
-            <option value={"all"}>all</option>
-            {categories.map((category) => {
-              return (
-                <option value={category.slug} key={category.slug}>
-                  {category.slug}
-                </option>
-              );
-            })}
-          </select>
-        </label>
-
-        <label>
-          Sort by:
-          <select onChange={handleSortByChange} className="select">
-            <option value="created_at">newest</option>
-            <option value="comment_count">most comments</option>
-            <option value="votes">most popular</option>
-          </select>
-        </label>
-      </div>
-
       <div className="ReviewList__page-selection">
         {pageRange.map((pageNumber) => {
           return (
@@ -108,6 +64,7 @@ export const ReviewList = () => {
           );
         })}
       </ul>
+
       <div className="ReviewList__page-selection">
         {pageRange.map((pageNumber) => {
           return (

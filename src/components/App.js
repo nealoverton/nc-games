@@ -9,6 +9,7 @@ import { profileContext, lastUrlContext } from "./Context";
 import { useState } from "react";
 import Login from "./Login";
 import { FullReview } from "./FullReview";
+import { UserReviews } from "./UserReviews";
 
 function App() {
   const [profile, setProfile] = useState();
@@ -21,10 +22,15 @@ function App() {
           <div className="App">
             <Nav />
             <Routes>
-              <Route path="/" element={<ReviewList />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/reviews" element={<ReviewList />} />
               <Route path="/login" element={<Login />} />
               <Route path="/reviews/:review_id" element={<FullReview />} />
               <Route path="/users/:username" element={<User />} />
+              <Route
+                path="/users/:username/reviews"
+                element={<UserReviews />}
+              />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>

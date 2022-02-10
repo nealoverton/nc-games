@@ -55,6 +55,14 @@ div {
   align-items: center;
 }
 
+.Home {
+  list-style-type: none;
+  background-color: var(--background-color);
+  padding: 0px;
+  margin: 0px;
+  height: 100%;
+}
+
 .ReviewList {
   list-style-type: none;
   background-color: var(--background-color);
@@ -230,12 +238,6 @@ div {
 .User__link {
   text-decoration: none;
   color: var(--text-color-light);
-}
-
-.Home {
-  height: 100vh;
-  overflow: hidden;
-  background-color: var(--background-color);
 }
 
 .Comment {

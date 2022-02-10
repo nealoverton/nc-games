@@ -42,16 +42,19 @@ export const Review = ({ review_id, isFullReview = false, votes }) => {
   return isloading ? (
     <p>Loading...</p>
   ) : (
-    <div
-      className="Review"
-      onClick={() => navigate(`/reviews/${review.review_id}`)}
-    >
+    <div className="Review">
       <img
         src={review.review_img_url}
         className="Review__img"
         alt="A review image chosen by the author"
+        onClick={() => navigate(`/reviews/${review.review_id}`)}
       />
-      <h2 className="Review__title">{review.title}</h2>
+      <h2
+        className="Review__title"
+        onClick={() => navigate(`/reviews/${review.review_id}`)}
+      >
+        {review.title}
+      </h2>
       <h3 className="Review__category">{review.category}</h3>
       <p>{votes} votes</p>
 
@@ -65,13 +68,20 @@ export const Review = ({ review_id, isFullReview = false, votes }) => {
           isExpanded ? "Review__body--expanded" : "Review__body--collapsed"
         }
       >
-        <p>{review.review_body}</p>
+        <p onClick={() => navigate(`/reviews/${review.review_id}`)}>
+          {review.review_body}
+        </p>
       </div>
 
       {isFullReview ? (
         <></>
       ) : (
-        <p className="Review__footer">{review.comment_count} comments</p>
+        <p
+          className="Review__footer"
+          onClick={() => navigate(`/reviews/${review.review_id}`)}
+        >
+          {review.comment_count} comments
+        </p>
       )}
     </div>
   );

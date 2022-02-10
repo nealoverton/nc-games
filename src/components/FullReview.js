@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import Review from "./Review";
+import Review from "./ReviewSnippet";
 import {
   fetchCommentsbyReviewID,
   fetchReviewByID,
@@ -61,29 +61,34 @@ export const FullReview = () => {
   ) : (
     <div className="FullReview">
       <Review review_id={review_id} isFullReview={true} votes={votes} />
-      <div className="Review__footer__voting">
-        <p>Do you agree?</p>
-        <div className="Review__voting__buttons">
-          <button
-            className="Review__voting__button"
-            onClick={() => handleVoting(1)}
-          >
-            <img
-              src={require("../thumbs-up.png")}
-              className="Review__voting__button__img--up"
-            />
-          </button>
-          <button
-            className="Review__voting__button"
-            onClick={() => handleVoting(-1)}
-          >
-            <img
-              src={require("../thumbs-down.png")}
-              className="Review__voting__button__img--down"
-            />
-          </button>
+      {profile ? (
+        <div className="Review__footer__voting">
+          <p>Do you agree?</p>
+          <div className="Review__voting__buttons">
+            <button
+              className="Review__voting__button"
+              onClick={() => handleVoting(1)}
+            >
+              <img
+                src={require("../thumbs-up.png")}
+                className="Review__voting__button__img--up"
+              />
+            </button>
+            <button
+              className="Review__voting__button"
+              onClick={() => handleVoting(-1)}
+            >
+              <img
+                src={require("../thumbs-down.png")}
+                className="Review__voting__button__img--down"
+              />
+            </button>
+          </div>
         </div>
-      </div>
+      ) : (
+        <></>
+      )}
+
       {profile ? (
         <form onSubmit={handleSubmit}>
           <input

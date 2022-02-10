@@ -39,7 +39,9 @@ export const User = () => {
       <h1>{user.username}</h1>
       <h3>{user.name}</h3>
       {userReviews ? (
-        <p className="User__link">{userReviews} reviews</p>
+        <Link to={`/users/${user.username}/reviews`} className="User__link">
+          {userReviews} reviews
+        </Link>
       ) : (
         <p></p>
       )}
