@@ -10,6 +10,7 @@ import { useState } from "react";
 import Login from "./Login";
 import { FullReview } from "./FullReview";
 import { UserReviews } from "./UserReviews";
+import { ReviewForm } from "./ReviewForm";
 
 function App() {
   const [profile, setProfile] = useState();
@@ -26,6 +27,7 @@ function App() {
               <Route path="/reviews" element={<ReviewList />} />
               <Route path="/login" element={<Login />} />
               <Route path="/reviews/:review_id" element={<FullReview />} />
+              <Route path="/reviews/new" element={<ReviewForm />} />
               <Route path="/users/:username" element={<User />} />
               <Route
                 path="/users/:username/reviews"

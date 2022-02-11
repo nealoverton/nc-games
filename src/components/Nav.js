@@ -1,10 +1,11 @@
 import "./Nav.css";
 import { Link, useNavigate } from "react-router-dom";
 import { profileContext } from "./Context";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 
 export const Nav = () => {
   const { profile, setProfile } = useContext(profileContext);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   let loggedInAs = <p></p>;
   const loginLink = (
@@ -17,6 +18,7 @@ export const Nav = () => {
   const logout = () => {
     setProfile();
     localStorage.removeItem("user");
+    setDropdownOpen(false);
     navigate("/");
   };
 
@@ -34,10 +36,25 @@ export const Nav = () => {
         <img
           src={profile.avatar_url}
           className="Nav__profile__img"
-          onClick={() => navigate(`/users/${profile.username}`)}
+          onClick={() => setDropdownOpen(!dropdownOpen)}
         />
-        <button onClick={logout}>Logout</button>
-        {/* <img src={require("../hamburger.png")} className="Nav__hamburger" /> */}
+
+        <div
+          className={dropdownOpen ? "Nav__dropdown" : "Nav__dropdown hidden"}
+        >
+          <Link
+            to={`/users/${profile.username}`}
+            onClick={() => setDropdownOpen(false)}
+          >
+            My profile
+          </Link>
+          <Link to={"/reviews/new"} onClick={() => setDropdownOpen(false)}>
+            Post a review
+          </Link>
+          <Link to={`/`} onClick={logout}>
+            Log out
+          </Link>
+        </div>
       </div>
     );
   }
