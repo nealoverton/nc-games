@@ -8,6 +8,7 @@ import {
 } from "../utils/game-reviews-api";
 import { UserSnippet } from "./UserSnippet";
 import { useNavigate } from "react-router-dom";
+import "./ReviewSnippet.css";
 
 export const Review = ({ review_id, isFullReview = false, votes }) => {
   const [review, setReview] = useState({});
@@ -65,7 +66,7 @@ export const Review = ({ review_id, isFullReview = false, votes }) => {
       <p className="Review__date">posted {date}</p>
       <div
         className={
-          isExpanded ? "Review__body--expanded" : "Review__body--collapsed"
+          isFullReview ? "Review__body--expanded" : "Review__body--collapsed"
         }
       >
         <p onClick={() => navigate(`/reviews/${review.review_id}`)}>

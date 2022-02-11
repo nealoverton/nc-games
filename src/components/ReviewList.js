@@ -59,7 +59,7 @@ export const ReviewList = ({ category, sort_by, owner, page, setPage }) => {
         {reviews.map((review) => {
           return (
             <li key={review.review_id} className="ReviewList__li">
-              <Review review_id={review.review_id} />
+              <Review review_id={review.review_id} votes={review.votes} />
             </li>
           );
         })}

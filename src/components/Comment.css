@@ -3,7 +3,6 @@
   margin: 20px;
   padding: 10px;
   border-radius: 5px;
-  max-width: 500px;
 }
 
 .Comment > * {
@@ -11,6 +10,7 @@
 }
 
 .Comment__body {
-  overflow-wrap: break-word;
-  max-width: 100%;
+  text-overflow: wrap;
+
+  max-width: 500px;
 }

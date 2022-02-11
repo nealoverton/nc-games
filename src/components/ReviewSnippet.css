@@ -1,0 +1,123 @@
+.Review {
+  background-color: var(--primary-color);
+  max-width: 500px;
+  margin: 20px;
+  border-radius: 5px;
+}
+
+.Review__category {
+  color: var(--secondary-color);
+  margin: 5px;
+}
+
+.Review__title {
+  margin-bottom: 5px;
+}
+
+.ReviewList__page-selection {
+  flex-direction: row;
+  justify-content: center;
+  width: 100vw;
+  height: 100%;
+  margin-bottom: 20px;
+  background-color: var(--background-color);
+  margin-bottom: 0px;
+}
+
+.ReviewList__page-button {
+  background-color: var(--primary-color);
+  color: var(--text-color-light);
+  font-weight: bold;
+  margin: 3px;
+}
+
+.ReviewList__page-button--selected {
+  background-color: var(--highlight-color);
+  color: var(--tertiary-color);
+  font-weight: bold;
+  margin: 3px;
+}
+
+.Review__img {
+  width: 80%;
+  max-width: 400px;
+  max-height: 150px;
+  object-fit: cover;
+}
+
+.Review__title {
+  color: var(--highlight-color);
+}
+
+.Review__user-details {
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  color: var(--highlight-color);
+}
+
+.Review__user-details__img {
+  width: 30px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.Review__date {
+  color: var(--secondary-color);
+}
+
+.Review__body--collapsed {
+  overflow: hidden;
+  max-height: 6em;
+  margin: 5px;
+
+  background: linear-gradient(
+    to bottom,
+    rgb(207, 205, 205) 50%,
+    rgb(37, 51, 66)
+  );
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+
+.Review__body--expanded {
+  margin: 5px;
+}
+
+.Review__read-more {
+  align-self: flex-end;
+  font-size: 0.8em;
+  margin-right: 10px;
+  margin-top: 0px;
+  color: var(--highlight-color);
+}
+
+.Review__footer {
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 300px;
+  margin: 10px;
+  color: var(--highlight-color);
+}
+
+.Review__voting__buttons {
+  flex-direction: row;
+}
+
+.Review__voting__button {
+  background-color: var(--tertiary-color);
+}
+
+.Review__voting__button__img--up {
+  width: 30px;
+  align-self: flex-end;
+}
+
+.Review__voting__button__img--down {
+  width: 30px;
+  align-self: flex-end;
+}

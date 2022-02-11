@@ -19,6 +19,22 @@ export const fetchReviewByID = (review_id) => {
   });
 };
 
+export const postReview = (owner, title, review_body, designer, category) => {
+  const url = `/reviews`;
+
+  return gamesApi
+    .post(url, { owner, title, review_body, designer, category })
+    .then((res) => {
+      return res.data;
+    });
+};
+
+export const deleteReview = (review_id) => {
+  const url = `/reviews/${review_id}`;
+
+  return gamesApi.delete(url);
+};
+
 export const patchReview = (review_id, inc_votes) => {
   const url = `/reviews/${review_id}`;
 
@@ -47,6 +63,14 @@ export const deleteComment = (comment_id) => {
   const url = `/comments/${comment_id}`;
 
   return gamesApi.delete(url);
+};
+
+export const patchComment = (comment_id, inc_votes) => {
+  const url = `/comments/${comment_id}`;
+
+  return gamesApi.patch(url, { inc_votes }).then((res) => {
+    return res.data;
+  });
 };
 
 export const fetchUserByUsername = (username) => {

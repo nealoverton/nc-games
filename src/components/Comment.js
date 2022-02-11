@@ -1,5 +1,9 @@
 import { useEffect, useState, useContext } from "react";
-import { deleteComment, fetchUserByUsername } from "../utils/game-reviews-api";
+import {
+  deleteComment,
+  fetchUserByUsername,
+  patchComment,
+} from "../utils/game-reviews-api";
 import { UserSnippet } from "./UserSnippet";
 import { formatDate } from "../utils/formatting";
 import { profileContext } from "./Context";
@@ -10,6 +14,7 @@ export const Comment = ({ comment, setComments }) => {
   const [isloading, setIsLoading] = useState(true);
   const [date, setDate] = useState("");
   const { profile, setProfile } = useContext(profileContext);
+  const [votes, setVotes] = useState(comment.votes);
 
   useEffect(() => {
     setDate(formatDate(comment.created_at));
@@ -35,6 +40,11 @@ export const Comment = ({ comment, setComments }) => {
     });
   };
 
+  const handleVoting = (inc_votes) => {
+    setVotes((currentVotes) => currentVotes + inc_votes);
+    patchComment(comment.comment_id, inc_votes);
+  };
+
   return isloading ? (
     <p>Loading...</p>
   ) : (
@@ -42,6 +52,35 @@ export const Comment = ({ comment, setComments }) => {
       <UserSnippet user={user} />
       <p className="Review__date">posted {date}</p>
       <p className="Comment__body">{comment.body}</p>
+
+      {profile ? (
+        <div className="Review__footer__voting">
+          <div className="Review__voting__buttons">
+            <button
+              className="Review__voting__button"
+              onClick={() => handleVoting(1)}
+            >
+              <img
+                src={require("../thumbs-up.png")}
+                className="Review__voting__button__img--up"
+              />
+            </button>
+            <p>{votes} votes</p>
+            <button
+              className="Review__voting__button"
+              onClick={() => handleVoting(-1)}
+            >
+              <img
+                src={require("../thumbs-down.png")}
+                className="Review__voting__button__img--down"
+              />
+            </button>
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
+
       {profile && profile.username === comment.author ? (
         <button onClick={handleDelete}>delete</button>
       ) : (
