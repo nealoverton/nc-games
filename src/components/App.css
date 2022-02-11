@@ -1,7 +1,7 @@
 .App {
-  --primary-color: #253342;
-  --secondary-color: #6280a1;
-  --tertiary-color: #192531;
+  --primary-color: rgb(37, 51, 66);
+  --secondary-color: rgb(98, 128, 161);
+  --tertiary-color: rgb(25, 37, 49);
   --background-color: rgb(24, 27, 37);
   --highlight-color: rgb(159, 209, 233);
   --text-color-light: rgb(207, 205, 205);
@@ -106,7 +106,7 @@ div {
   margin-bottom: 0px;
 }
 
-.ReviewList__page-button {
+button {
   background-color: var(--primary-color);
   color: var(--text-color-light);
   font-weight: bold;
@@ -218,21 +218,17 @@ div {
 
 .User {
   background-color: var(--primary-color);
-  height: 500px;
-  margin-top: 70px;
-  border: red 1px solid;
-  margin: 0px;
+  padding: 20px;
+  margin-top: 20px;
 }
 
 .User__img {
   width: 200px;
-  border: red 1px solid;
 }
 
 .User__link {
   text-decoration: none;
-  color: var(--text-color-light);
-  border: red 1px solid;
+  color: var(--highlight-color);
 }
 
 .Comment {

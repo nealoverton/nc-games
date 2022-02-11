@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import DetectableOverflow from "react-detectable-overflow";
-import { gaugeReaction, formatDate } from "../utils/formatting";
+import { formatDate } from "../utils/formatting";
 import {
   fetchReviewByID,
-  fetchReviews,
   fetchUserByUsername,
 } from "../utils/game-reviews-api";
 import { UserSnippet } from "./UserSnippet";
@@ -13,9 +11,7 @@ import "./ReviewSnippet.css";
 export const Review = ({ review_id, isFullReview = false, votes }) => {
   const [review, setReview] = useState({});
   const [user, setUser] = useState({});
-  const [userReviews, setUserReviews] = useState();
   const [isloading, setIsLoading] = useState(true);
-  const [isExpanded, setIsExpanded] = useState(isFullReview);
   const [date, setDate] = useState("");
 
   const navigate = useNavigate();
@@ -29,16 +25,8 @@ export const Review = ({ review_id, isFullReview = false, votes }) => {
       fetchUserByUsername(res.review.owner).then((res) => {
         setUser(res.user);
       });
-
-      fetchReviews(null, res.review.owner).then((res) => {
-        setUserReviews(res.total_count);
-      });
     });
-  }, [votes]);
-
-  const expandReview = () => {
-    setIsExpanded(true);
-  };
+  }, [votes, review_id]);
 
   return isloading ? (
     <p>Loading...</p>
