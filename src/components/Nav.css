@@ -53,3 +53,8 @@ Nav {
     rgba(56, 73, 92, 1) 100%
   );
 }
+
+.Nav__hamburger {
+  color: var(--text-color-light);
+  width: 20px;
+}

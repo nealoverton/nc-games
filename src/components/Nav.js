@@ -5,6 +5,7 @@ import { useContext, useEffect } from "react";
 
 export const Nav = () => {
   const { profile, setProfile } = useContext(profileContext);
+
   let loggedInAs = <p></p>;
   const loginLink = (
     <Link to="/login" className="Nav__login">
@@ -36,6 +37,7 @@ export const Nav = () => {
           onClick={() => navigate(`/users/${profile.username}`)}
         />
         <button onClick={logout}>Logout</button>
+        {/* <img src={require("../hamburger.png")} className="Nav__hamburger" /> */}
       </div>
     );
   }
