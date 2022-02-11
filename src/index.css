@@ -15,5 +15,6 @@ code {
 #root {
   background-color: rgb(24, 27, 37);
   min-height: 100vh;
-  min-width: 100vw;
+  min-width: 100%;
+  overflow: hidden;
 }

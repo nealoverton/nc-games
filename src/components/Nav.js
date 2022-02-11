@@ -50,11 +50,11 @@ export const Nav = () => {
         onClick={() => window.scrollTo(0, 0)}
       >
         <img
-          src={require("../logo.png")}
+          src={require("../media/logo.png")}
           className="Nav__logo"
           alt="Black die icon"
         />
-        <h1>Table Hog</h1>
+        <h1>Tablehog</h1>
       </Link>
       {profile ? loggedInAs : loginLink}
     </nav>

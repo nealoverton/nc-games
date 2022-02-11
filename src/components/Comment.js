@@ -61,7 +61,7 @@ export const Comment = ({ comment, setComments }) => {
               onClick={() => handleVoting(1)}
             >
               <img
-                src={require("../thumbs-up.png")}
+                src={require("../media/thumbs-up.png")}
                 className="Review__voting__button__img--up"
               />
             </button>
@@ -71,7 +71,7 @@ export const Comment = ({ comment, setComments }) => {
               onClick={() => handleVoting(-1)}
             >
               <img
-                src={require("../thumbs-down.png")}
+                src={require("../media/thumbs-down.png")}
                 className="Review__voting__button__img--down"
               />
             </button>

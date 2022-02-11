@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Review from "./ReviewSnippet";
 import {
   fetchCommentsbyReviewID,
@@ -18,15 +18,21 @@ export const FullReview = () => {
   const [newComment, setNewComment] = useState("");
   const { profile, setProfile } = useContext(profileContext);
   const { setLastUrl } = useContext(lastUrlContext);
-  const [tempSwitch, setTempSwitch] = useState(true);
   const [votes, setVotes] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
     setLastUrl(window.location.pathname);
-    fetchReviewByID(review_id).then((res) => {
-      setVotes(res.review.votes);
-    });
+    fetchReviewByID(review_id)
+      .then((res) => {
+        setVotes(res.review.votes);
+      })
+      .catch((err) => {
+        navigate("/404");
+      });
+
     fetchCommentsbyReviewID(review_id).then((res) => {
       setComments(res.comments);
       setIsLoading(false);
@@ -70,7 +76,7 @@ export const FullReview = () => {
               onClick={() => handleVoting(1)}
             >
               <img
-                src={require("../thumbs-up.png")}
+                src={require("../media/thumbs-up.png")}
                 className="Review__voting__button__img--up"
               />
             </button>
@@ -79,7 +85,7 @@ export const FullReview = () => {
               onClick={() => handleVoting(-1)}
             >
               <img
-                src={require("../thumbs-down.png")}
+                src={require("../media/thumbs-down.png")}
                 className="Review__voting__button__img--down"
               />
             </button>

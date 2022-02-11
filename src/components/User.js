@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { fetchUserByUsername, fetchReviews } from "../utils/game-reviews-api";
 import { NotFound } from "./NotFound";
 import { lastUrlContext } from "./Context";
@@ -9,27 +9,25 @@ export const User = () => {
   const [user, setUser] = useState();
   const [userReviews, setUserReviews] = useState();
   const [isloading, setIsLoading] = useState(true);
-  const [userNotFound, setUserNotFound] = useState(false);
   const { setLastUrl } = useContext(lastUrlContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);
     setLastUrl(window.location.pathname);
-    fetchUserByUsername(username).then((res) => {
-      if (!res.user) {
-        setUserNotFound(true);
-      }
-
-      setUser(res.user);
-      setIsLoading(false);
-    });
+    fetchUserByUsername(username)
+      .then((res) => {
+        setUser(res.user);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        navigate("/404");
+      });
 
     fetchReviews({ owner: username }).then((res) => {
       setUserReviews(res.total_count);
     });
   }, []);
-
-  if (userNotFound) return <NotFound />;
 
   return isloading ? (
     <p>Loading...</p>
