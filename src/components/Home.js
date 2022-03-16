@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { lastUrlContext } from "./Context";
 import { fetchCategories, fetchReviews } from "../utils/game-reviews-api";
 import ReviewList from "./ReviewList";
+import "./Home.css";
 
 export const Home = () => {
   const [isloading, setIsLoading] = useState(true);
@@ -40,10 +41,10 @@ export const Home = () => {
 
   return (
     <div className="Home">
-      <div className="ReviewList__selectors">
+      <div className="Home__selector-row">
         <label>
           Category:
-          <select onChange={handleCategoryChange} className="select">
+          <select onChange={handleCategoryChange}>
             <option value={"all"}>all</option>
             {categories.map((category) => {
               return (

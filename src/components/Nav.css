@@ -1,10 +1,11 @@
 Nav {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  padding: 0px 50px;
   margin: 0;
   width: 100vw;
-  height: 70px;
+  height: 10vh;
   color: var(--text-color-light);
   background: var(--primary-color);
 }
@@ -22,7 +23,7 @@ Nav {
 .Nav__logo {
   width: 40px;
   height: 40px;
-  margin: 10px;
+  margin-left: 10vw;
 }
 
 .Nav__profile__img {
@@ -30,6 +31,7 @@ Nav {
   height: 50px;
   border-radius: 25px;
   object-fit: cover;
+  margin-right: 10vw;
 }
 
 .Nav__login {
@@ -66,7 +68,7 @@ Nav {
   max-width: 200px;
   height: 200px;
   position: fixed;
-  top: 70px;
+  top: 10vh;
   right: 0;
   justify-content: space-evenly;
 }

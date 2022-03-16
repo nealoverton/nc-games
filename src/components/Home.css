@@ -1,0 +1,23 @@
+.Home {
+  list-style-type: none;
+  background-color: var(--background-color);
+  padding: 0px;
+  margin: 0px;
+  height: 100%;
+}
+
+.Home__selector-row {
+  flex-direction: row;
+  width: 90%;
+  height: 50px;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+select {
+  background-color: var(--text-color-light);
+  color: var(--background-color);
+  border-radius: 3px;
+  font-weight: bold;
+  text-align: center;
+}
