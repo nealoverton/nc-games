@@ -5,6 +5,7 @@ import {
   fetchReviewByID,
   patchReview,
   postComment,
+  updateVotes,
 } from "../utils/game-reviews-api";
 import { useEffect, useState, useContext } from "react";
 import { Comment } from "./Comment";
@@ -59,7 +60,7 @@ export const FullReview = () => {
 
   const handleVoting = (inc_votes) => {
     setVotes((currentVotes) => currentVotes + inc_votes);
-    patchReview(review_id, inc_votes);
+    updateVotes(review_id, inc_votes, "reviews");
   };
 
   return isloading ? (

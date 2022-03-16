@@ -3,6 +3,7 @@ import {
   deleteComment,
   fetchUserByUsername,
   patchComment,
+  updateVotes,
 } from "../utils/game-reviews-api";
 import { UserSnippet } from "./UserSnippet";
 import { formatDate } from "../utils/formatting";
@@ -42,7 +43,7 @@ export const Comment = ({ comment, setComments }) => {
 
   const handleVoting = (inc_votes) => {
     setVotes((currentVotes) => currentVotes + inc_votes);
-    patchComment(comment.comment_id, inc_votes);
+    updateVotes(comment.comment_id, inc_votes, "comments");
   };
 
   return isloading ? (
