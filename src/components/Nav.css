@@ -23,7 +23,7 @@ Nav {
 .Nav__logo {
   width: 40px;
   height: 40px;
-  margin-left: 10vw;
+  margin-left: 20px;
 }
 
 .Nav__profile__img {
@@ -31,12 +31,13 @@ Nav {
   height: 50px;
   border-radius: 25px;
   object-fit: cover;
-  margin-right: 10vw;
+  margin-right: 20px;
 }
 
 .Nav__login {
   color: var(--text-color-light);
   text-decoration: none;
+  margin-right: 20px;
 }
 
 .sticky {

@@ -1,6 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { useSearchParams } from "react-router-dom";
-import { fetchCategories, fetchReviews } from "../utils/game-reviews-api";
+import { fetchReviews } from "../utils/game-reviews-api";
 import Review from "./ReviewSnippet";
 import { lastUrlContext } from "./Context";
 

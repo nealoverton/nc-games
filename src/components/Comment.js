@@ -2,7 +2,6 @@ import { useEffect, useState, useContext } from "react";
 import {
   deleteComment,
   fetchUserByUsername,
-  patchComment,
   updateVotes,
 } from "../utils/game-reviews-api";
 import { UserSnippet } from "./UserSnippet";

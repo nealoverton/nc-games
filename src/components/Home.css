@@ -9,6 +9,7 @@
 .Home__selector-row {
   flex-direction: row;
   width: 90%;
+  max-width: 500px;
   height: 50px;
   justify-content: space-around;
   margin-top: 20px;

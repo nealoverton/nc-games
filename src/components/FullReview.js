@@ -3,12 +3,10 @@ import Review from "./ReviewSnippet";
 import {
   fetchCommentsbyReviewID,
   fetchReviewByID,
-  patchReview,
   postComment,
   updateVotes,
 } from "../utils/game-reviews-api";
 import { useEffect, useState, useContext } from "react";
-import { Comment } from "./Comment";
 import { profileContext, lastUrlContext } from "./Context";
 import { CommentList } from "./CommentList";
 

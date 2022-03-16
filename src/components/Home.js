@@ -1,27 +1,20 @@
 import { useEffect, useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { lastUrlContext } from "./Context";
-import { fetchCategories, fetchReviews } from "../utils/game-reviews-api";
+import { fetchCategories } from "../utils/game-reviews-api";
 import ReviewList from "./ReviewList";
 import "./Home.css";
 
 export const Home = () => {
-  const [isloading, setIsLoading] = useState(true);
-  const [reviews, setReviews] = useState([]);
   const [page, setPage] = useState(1);
-  const [pageRange, setPageRange] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState();
-  const sortByOptions = ["created_at", "comment_count", "votes"];
   const [selectedSortBy, setSelectedSortBy] = useState();
   const { setLastUrl } = useContext(lastUrlContext);
-  const navigate = useNavigate();
 
   useEffect(() => {
     setLastUrl(window.location.pathname);
     fetchCategories().then((res) => {
       setCategories(res.categories);
-      setIsLoading(false);
     });
   }, []);
 

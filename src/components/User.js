@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { fetchUserByUsername, fetchReviews } from "../utils/game-reviews-api";
-import { NotFound } from "./NotFound";
 import { lastUrlContext } from "./Context";
 
 export const User = () => {

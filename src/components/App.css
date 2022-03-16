@@ -24,6 +24,11 @@
   color: var(--text-color-light);
 }
 
+input {
+  border-radius: 5px;
+  background-color: var(--text-color-light);
+}
+
 ul {
   list-style-type: none;
   padding: 0;
